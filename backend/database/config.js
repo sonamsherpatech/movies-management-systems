@@ -10,3 +10,15 @@ sequelize.authenticate()
   .catch((err) => {
     console.log("Error: ", err);
   })
+
+const db = {}
+db.Sequelize = Sequelize
+db.sequelize = sequelize
+
+db.movie = require("./models/movie.model")(sequelize, DataTypes)
+
+sequelize.sync({ alter: true }).then(() => console.log("Migration sucessfull"))
+
+
+
+module.exports = db
