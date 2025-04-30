@@ -17,8 +17,12 @@ db.sequelize = sequelize
 
 db.movie = require("./models/movie.model")(sequelize, DataTypes)
 
-sequelize.sync({ alter: true }).then(() => console.log("Migration sucessfull"))
-
-
+sequelize.sync({ alter: false })
+  .then(() => {
+    console.log("Migration sucessfull")
+  })
+  .catch((err) => {
+    console.log("Migration failed: ", err)
+  })
 
 module.exports = db
