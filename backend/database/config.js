@@ -15,7 +15,8 @@ const db = {}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
-db.movie = require("./models/movie.model")(sequelize, DataTypes)
+db.movies = require("./models/movie.model")(sequelize, DataTypes)
+db.users = require("./models/user.model")(sequelize, DataTypes)
 
 sequelize.sync({ alter: false })
   .then(() => {
