@@ -34,16 +34,42 @@ exports.postMovie = async (req, res) => {
   })
 }
 
-exports.deleteMovie = (req, res) => {
+exports.deleteMovie = async (req, res) => {
+  const id = req.params.id
+  await movies.destroy({
+    where: {
+      id
+    }
+  })
   res.json({
     message: "Successfully deleted movie"
   })
 }
 
-exports.updateMovie = (req, res) => {
-  res.json({
-    message: "Successfully updated movie"
-  })
+exports.updateMovie = async (req, res) => {
+  try {
+    const id = req.params.id
+    const { title, director, rating, description, release_year } = req.body
+    await movies.update({
+      title,
+      director,
+      rating,
+      description,
+      release_year
+    }, {
+      where: {
+        id
+      }
+    })
+    res.json({
+      message: "Successfully updated movie"
+    })
+  } catch (error) {
+    res.json({
+      message: "Error in Update"
+    })
+  }
+
 }
 
 exports.singleFetchMovie = async (req, res) => {
